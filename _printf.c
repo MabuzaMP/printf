@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "main.h"
 
 /**
@@ -23,7 +24,7 @@ int _printf(const char *format, ...)
 	va_start(args, format);
 	size = handler(format, args);
 
-	_putchar(-1);
+	putchar(-1);
 	va_end(args);
 
 	return (size);
