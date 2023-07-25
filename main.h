@@ -3,6 +3,11 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
+<<<<<<< HEAD
+
+#define UNUSED(x) (void)(x)
+#define BUFF_SIZE 1024
+=======
 
 #define UNUSED(x) (void)(x)
 #define BUFF_SIZE 1024
@@ -19,6 +24,31 @@
 #define S_SHORT 1
 
 /**
+ * struct fmt - Struct op
+ *
+ * @fmt: The format.
+ * @fn: The function associated.
+ */
+struct fmt
+{
+	char fmt;
+	int (*fn)(va_list, char[], int, int, int, int);
+};
+>>>>>>> 26a852adf88e07fa96557806cafedf623c66b057
+
+/* FLAGS */
+#define F_MINUS 1
+#define F_PLUS 2
+#define F_ZERO 4
+#define F_HASH 8
+#define F_SPACE 16
+
+/* SIZES */
+#define S_LONG 2
+#define S_SHORT 1
+
+/**
+<<<<<<< HEAD
 * struct fmt - Struct op
 *
 * @fmt: The format.
@@ -37,6 +67,13 @@ struct fmt
 * @fmt: The format.
 * @fm_t: The function associated.
 */
+=======
+ * typedef struct fmt fmt_t - Struct op
+ *
+ * @fmt: The format.
+ * @fm_t: The function associated.
+ */
+>>>>>>> 26a852adf88e07fa96557806cafedf623c66b057
 typedef struct fmt fmt_t;
 
 int _printf(const char *format, ...);
@@ -113,5 +150,11 @@ int is_digit(char);
 
 long int convert_size_number(long int num, int size);
 long int convert_size_unsgnd(unsigned long int num, int size);
+<<<<<<< HEAD
 
 #endif /* MAIN_H */
+=======
+
+#endif /* MAIN_H */
+
+>>>>>>> 26a852adf88e07fa96557806cafedf623c66b057
