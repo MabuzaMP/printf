@@ -1,78 +1,50 @@
+#include "main.h"
 #include <stdarg.h>
-#include <unistd.h>
-#include "holberton.h"
+#include <stdlib.h>
 /**
-  * find_function - function that finds formats for _printf
-  * calls the corresponding function.
-  * @format: format (char, string, int, decimal)
-  * Return: NULL or function associated ;
-  */
-int (*find_function(const char *format))(va_list)
-{
-	unsigned int i = 0;
-	code_f find_f[] = {
-		{"c", print_char},
-		{"s", print_string},
-		{"i", print_int},
-		{"d", print_dec},
-		{"r", print_rev},
-		{"b", print_bin},
-		{"u", print_unsig},
-		{"o", print_octal},
-		{"x", print_x},
-		{"X", print_X},
-		{"R", print_rot13},
-		{NULL, NULL}
-	};
+ * _printf - entry point
+ * @format: arg
+ * Return: len
+ */
 
-	while (find_f[i].sc)
-	{
-		if (find_f[i].sc[0] == (*format))
-			return (find_f[i].f);
-		i++;
-	}
-	return (NULL);
-}
-/**
-  * _printf - function that produces output according to a format.
-  * @format: format (char, string, int, decimal)
-  * Return: size the output text;
-  */
 int _printf(const char *format, ...)
 {
-	va_list ap;
-	int (*f)(va_list);
-	unsigned int i = 0, cprint = 0;
+	va_list arg;
+	int i, j, flag, len = 0;
 
-	if (format == NULL)
+	print_t print[] = {
+		{"c", print_char}, {"s", print_string}, {"d", print_int}, {"i", print_int},
+		{"R", print_rot13}, {"b", dec_binary}, {"o", print_octal}, {"x", print_hex},
+		{"X", print_Upper_hex}, {"u", print_u}, {"r", rev_str}, {NULL, NULL}
+	};
+	va_start(arg, format);
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
-	va_start(ap, format);
-	while (format[i])
+	i = 0;
+	while (format[i] != '\0')
 	{
-		while (format[i] != '%' && format[i])
+		if (format[i] == '%' && format[i + 1] != '%')
 		{
-			_putchar(format[i]);
-			cprint++;
+			j = 0, flag = 0;
+			while (print[j].symbol != NULL)
+			{
+				if (format[i + 1] == *print[j].symbol)
+					len = len + print[j].f(arg), i++, flag = 1;
+				j++;
+			}
+			if (flag == 0)
+				_putchar(format[i]), len += 1;
+		}
+		else if (format[i] == '%' && format[i + 1] == '%')
+		{
+			_putchar('%');
+			len += 1;
 			i++;
 		}
-		if (format[i] == '\0')
-			return (cprint);
-		f = find_function(&format[i + 1]);
-		if (f != NULL)
-		{
-			cprint += f(ap);
-			i += 2;
-			continue;
-		}
-		if (!format[i + 1])
-			return (-1);
-		_putchar(format[i]);
-		cprint++;
-		if (format[i + 1] == '%')
-			i += 2;
 		else
-			i++;
+			_putchar(format[i]), len += 1;
+		i++;
 	}
-	va_end(ap);
-	return (cprint);
+	va_end(arg);
+	return (len);
 }
