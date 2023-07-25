@@ -2,10 +2,10 @@
 #include <stdarg.h>
 #include <stdlib.h>
 /**
- * _printf - entry point
- * @format: arg
- * Return: len
- */
+* _printf - entry point
+* @format: arg
+* Return: len
+*/
 
 int _printf(const char *format, ...)
 {
