@@ -1,6 +1,5 @@
 #ifndef MAIN_H
 #define MAIN_H
-<<<<<<< HEAD
 
 #include <stdarg.h>
 #include <stdlib.h>
@@ -39,7 +38,7 @@ typedef struct print
 } print_t;
 
 #endif
-=======
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -155,5 +154,3 @@ long int convert_size_number(long int num, int size);
 long int convert_size_unsgnd(unsigned long int num, int size);
 
 #endif /** MAIN_H */
-
->>>>>>> d29514fc28e845b7250fa2ac1d0817f41ad824c0
